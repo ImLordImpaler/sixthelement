@@ -1,0 +1,77 @@
+{% extends "adminn/adminBase.html" %}
+{% block content %}
+<div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Your Orders</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        #
+                      </th>
+                      <th>
+                        Code
+                      </th>
+                      <th class="text-right">
+                        Percent
+                      </th>
+                      
+                      <th class="text-right">
+                        Action
+                      </th>
+                    </thead>
+                    <tbody>
+                            {% for i in coupons %}
+                                
+                                <tr>
+                                    <td>
+                                    {{forloop.counter}}
+                                    </td>
+                                    <td>
+                                    {{i.tag}}
+                                    </td>
+                                    <td class="text-right">
+                                    {{i.amount}}% off
+                                    </td>
+                                    
+                                    <td class="text-right">
+                                    <a href="{% url 'couponsDetail' i.id %}" class="btn btn-primary btn-sm btn-round">View?</a>
+                                    </td>
+                                </tr>
+                                
+                                
+                            {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="{% url 'allOrders' %}" class='btn btn-primary btn-round'>All Orders</a>
+              </div>
+            </div>
+          </div>
+          <div class='col-md-6 col-sm-12'>
+            <div class='card'>
+              <div class='card-header'>
+                <h5>Add New Code</h5>
+              </div>
+              <div class='card-body'>
+                <form action="{% url 'coupons' %}" method='post'> {% csrf_token %}
+                  <label><h5>Enter Coupon Code:</h5></label>
+                  <input type='text'  name="code" class='form-control'  placeholder='Enter Code' style="border:1px solid #A5A8AC;" />
+                   
+                  <label><h5 class='mt-4'>Enter Percentage:</h5></label>
+                  <input type='number' name="percent"  class='form-control' style="border:1px solid #A5A8AC;" placeholder='Enter Percent' />
+                  <button class='btn btn-primary btn-round' type='submit'>Submit</button>
+                </form>
+              </div>
+
+            </div>
+          </div>
+          
+        </div>
+{% endblock content %}

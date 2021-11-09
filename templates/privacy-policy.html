@@ -1,0 +1,53 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+
+
+<section class="page-header" style="background:url('https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')";>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name" style="color:white;">Privacy Policy</h1>
+					<ol class="breadcrumb">
+						<li><a href="{% url 'index' %}" style="color:white;">Home</a></li>
+						<li class="active" style="color:white;">Privacy Policy</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="about section">
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-md-12">
+				<h2 class="mt-40">Privacy POLICY</h2>
+				<p>This Privacy Policy describes how your personal information is collected, used, and shared when you visit or make a purchase from <strong>www.senutrition.in</strong> (the “Site”).</p>
+				<a href="{% url 'shop' %}" class="btn btn-main mt-20 btn-round-full">Shop</a>
+			</div>
+		</div>
+		
+	</div>
+</section>
+<section class="about section">
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-md-12">
+				<h2 class="mt-40">RETURN POLICY</h2>
+				<ol>
+                    <li><p><span >When you visit the Site, we automatically collect certain information about your device, including information about your web browser, IP address, time zone, and some of the cookies that are installed on your device. Additionally, as you browse the Site, we collect information about the individual web pages or products that you view, what websites or search terms referred you to the Site, and information about how you interact with the Site. We refer to this automatically-collected information as “Device Information”.</p></li>
+
+                 </ol>
+				
+                <a href="{% url 'index' %}" class="btn btn-main mt-20 btn-round-full">Home</a>
+			</div>
+		</div>
+		
+	</div>
+</section>
+
+{% endblock content %}

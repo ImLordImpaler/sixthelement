@@ -1,0 +1,133 @@
+{% extends 'basic.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<section class="page-header" style="background:#0c0e0e;";>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name" style="color:white;">Contact Us</h1>
+					<ol class="breadcrumb">
+						<li><a href="{% url 'index' %}" style="color:white;">Home</a></li>
+						<li class="active" style="color:white;">Contact Us</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="pricing-table">
+		<div class="container">
+			<div class="row">
+				<!-- single pricing table -->
+				<div class="col-md-4 col-sm-6 col-xs-12" >
+					<div class="pricing-item" >
+						
+						<!-- plan name & value -->
+						<div class="price-title" >
+							<h3>+91-8851661538</h3>
+							<strong class="value"><i class="fas fa-address-book"></i></strong>
+						</div>
+					</div>
+				</div>
+				<!-- end single pricing table -->
+				
+				<!-- single pricing table -->
+				<div class="col-md-4 col-sm-6 col-xs-12  "  >
+					<div class="pricing-item" >
+						
+						<!-- plan name & value -->
+						<div class="price-title" >
+							<h3><a href="https://www.instagram.com/sixthelementindia/">@SixthElementIndia</a></h3>
+							<a href="https://www.instagram.com/sixthelementindia/"><strong class="value"><i class="fab fa-instagram-square"></i></strong></a>
+						</div>
+					</div>
+				</div>
+				<!-- end single pricing table -->
+				
+				<!-- single pricing table -->
+				<div class="col-md-4 col-sm-6 col-xs-12 ">
+					<div class="pricing-item" >
+						
+						<!-- plan name & value -->
+						<div class="price-title" >
+							<h3> senutritionindia@gmail.com</h3>
+							<strong class="value"><i class="fas fa-envelope"></i></strong>
+						</div>
+					</div>
+				</div>
+				<!-- end single pricing table -->
+				
+				
+			</div>       <!-- End row -->
+		</div>   	<!-- End container -->
+	</section>   <!-- End section -->
+<section class="page-wrapper">
+	<div class="contact-section">
+		<div class="container">
+			<div class="row">
+				<!-- Contact Form -->
+				<div class="contact-form col-md-6 " >
+					<h3>Contact Us </h3>
+					<form id="contact-form" method="post" action="{% url 'contact' %}" role="form"> {% csrf_token%}
+					
+						<div class="form-group">
+							
+								{% render_field form.name type="text" class="form-control" style="border: 1px solid #949494; border-radius:10px;" placeholder='Enter Your Name*' %}
+							</div>
+						
+						<div class="form-group">
+							
+							{% render_field form.phone type="text" class="form-control" style="border: 1px solid #949494; border-radius:10px;" placeholder='Enter Your Phone Number*' %}
+						</div>
+						
+						<div class="form-group">
+							
+							{% render_field form.message type="text" class="form-control" style="border: 1px solid #949494; border-radius:10px;" placeholder='Your Message' %}
+						</div>
+						
+						<div id="mail-success" class="success">
+							Thank you. The Mailman is on His Way :)
+						</div>
+						
+						<div id="mail-fail" class="error">
+							Sorry, don't know what happened. Try later :(
+						</div>
+						
+						<div id="cf-submit">
+							<button type="submit" id="contact-submit" class="btn btn-transparent" value="Submit">Submit <i class="fas fa-long-arrow-alt-right"></i></button> 
+						</div>						
+						
+					</form>
+				</div>
+				<!-- ./End Contact Form -->
+				
+				<!-- Contact Details -->
+				<div class="contact-details col-md-6 " >
+					<div class="google-map">
+						<img class="img-fluid" src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" width="600" height="400"/>
+					</div>
+					<ul class="contact-short-info" >
+						<li>
+							
+						</li>
+						<li>
+						</li>
+						
+						<li>
+							
+						</li>
+					</ul>
+					<!-- Footer Social Links -->
+					
+					<!--/. End Footer Social Links -->
+				</div>
+				<!-- / End Contact Details -->
+					
+				
+			
+			</div> <!-- end row -->
+		</div> <!-- end container -->
+	</div>
+</section>
+{% endblock content %}

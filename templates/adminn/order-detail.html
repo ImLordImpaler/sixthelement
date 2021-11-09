@@ -1,0 +1,67 @@
+{% extends "adminn/adminBase.html" %}
+{% block content %}
+<div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <div class="card card-upgrade">
+              <div class="card-header text-center">
+                <h4 class="card-title">Order #{{order.id}}</h3>
+                  <p class="card-category">Sixth Element</p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive table-upgrade">
+                  <table class="table">
+                    
+                    <tbody>
+                      <tr>
+                        <td>phone</td>
+                        <td class="text-right">{{order.billing_address.phone}}</td>
+                      </tr>
+                      <tr>
+                        <td>Default Phone No.</td>
+                        <td class="text-right">{{order.user.profile.phone}}</td>
+                      </tr>
+                      <tr>
+                        <td>User</td>
+                        <td class="text-right">{{order.user.username}}</td>
+                      </tr>
+                      <tr>
+                        <td>Date</td>
+                        <td class="text-right">{{order.start_date}}</td>
+                      </tr>
+                      <tr>
+                        <td>Payment Id</td>
+                        <td class="text-right">{{order.payment_id}}</td>
+                      </tr>
+                      <tr>
+                        <td>Razorpay Id</td></td>
+                        <td class="text-right">{{order.razorpay_id}}</td>
+                      </tr>
+                      <tr>
+                        <td>Signature</td>
+                        <td class="text-right">{{order.signature}}</td>
+                      </tr>
+                      <tr>
+                        <td>Billing Address</td></td>
+                        <td class="text-right">{{order.billing_address}}</td>
+                      </tr>
+                      <tr>
+                        <td >Items</td></td>
+                        <td class="text-right">
+                            {% for i  in order.items.all %}
+                                {{i.item.name}} x{{i.qty}} = ₹{{i.get_total}}/-<br>
+                            {% endfor %}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td class="text-right">Sixth Element</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock content %}

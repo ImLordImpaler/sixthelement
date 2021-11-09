@@ -1,0 +1,53 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+<section class="signin-page account" style="background:url('static/img/bg-signin.jpg');">
+  <div class="container">
+  
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="block text-center">
+          <a class="logo" href="index.html">
+            <img src="{% static 'img/logo.png'%}" width="100" alt="">
+          </a>
+                {% if messages %}
+									<ul class="messages">
+										{% for message in messages %}
+											{% if message.tags == 'warning' %}
+												
+                        <div class="alert alert-danger alert-common alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <i class="tf-ion-close-circled"></i><span>No User Record Found!</span> 
+                        </div>
+											{% elif message.tags == 'error' %}
+												
+                        <div class="alert alert-danger alert-common alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <i class="tf-ion-close-circled"></i><span>Wrong Phone Number or Password</span> 
+                        </div>
+											{% endif %}
+										{% endfor %}
+									</ul>
+								{% endif %}
+          <h2 class="text-center">Please Sign-in </h2>
+          <form class="text-left clearfix" method="post" action="{% url 'signin' %}"> {% csrf_token %}
+            
+            <div class="form-group">
+              <input type="number" class="form-control" name="uname" style="height:5rem;" placeholder="Phone Number">
+            </div>
+            
+            <div class="form-group">
+              <input type="password" class="form-control" name="pwd" style="height:5rem;" placeholder="Password">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-main text-center btn-round-full">Sign In</button>
+            </div>
+          </form>
+          <p class="mt-20">New Here?<a href="{% url 'register' %}"> Register?</a></p>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

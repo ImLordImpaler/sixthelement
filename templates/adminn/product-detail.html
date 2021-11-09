@@ -1,0 +1,114 @@
+{% extends "adminn/adminBase.html" %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col-md-8">
+    
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">#{{product.id}}</h5>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                       <h5 class="title text-primary">{{product.name}}</h5>
+                       
+                      </div>
+                    </div>
+                    <div class="col-md-6 px-1">
+                      <div class="form-group">
+                        <h5 class="title text-primary">₹{{product.price}}/-</h5>
+                        
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+                </form>
+              </div>
+              <div class='card-footer'>
+                <a href="{% url 'updateProduct' product.id %}" class="btn btn-primary btn-round btn-small">Edit?</a>
+              </div>
+            </div>
+          </div>
+</div>
+<hr>
+<div class="row">
+        <div class="col-lg-3">
+            <div class="card card-chart">
+              <div class="card-header">
+                
+                
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <img class="img-thumbnail" src="{{product.img1.url}}" />
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-chart">
+              <div class="card-header">
+                
+                
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <img class="img-thumbnail" src="{{product.img2.url}}" />
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-chart">
+              <div class="card-header">
+                
+                
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <img class="img-thumbnail" src="{{product.img3.url}}" />
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-chart">
+              <div class="card-header">
+                
+                
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <img class="img-thumbnail" src="{{product.img4.url}}" />
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+
+</div>
+{% endblock content %}

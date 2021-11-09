@@ -1,0 +1,132 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+{% load humanize %}
+
+<section class="page-header" style="background:#222525;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name" style="color:white;">Cart</h1>
+					<ol class="breadcrumb">
+						<li><a href="{% url 'index' %}" style="color:white;">Home</a></li>
+                        <li><a href="{% url 'shop' %}" style="color:white;">Shop</a></li>
+						<li class="active" style="color:white;">Cart</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<div class="page-wrapper">
+  <div class="cart shopping">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 ">
+          <div class="block">
+            <div class="product-list">
+              <form method="post">
+                {% if user.is_authenticated %}
+                    {% if order.items.all %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th class="">Item Name</th>
+                                <th class="">Size</th>
+                                <th class="">Item Price</th>
+                                <th class="">Quantity</th>
+                                <th class="">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in order.items.all %}
+                                    <tr class="">
+                                    <td class="">
+                                        <div class="product-info">
+                                        <a href="{% url 'item' i.item.id %}"><img width="80" src="{{i.item.img1.url}}" alt="" /></a>
+                                        <a href="{% url 'item' i.item.id %}">{{i.item.name}} | {{i.item.flavour.name}}</a>
+                                        </div>
+                                    </td>
+                                    <td class="">{{i.item.qty}}</td>
+                                    <td class=""><strong>₹{{i.item.afterPrice|intcomma}}</strong> <span class="badge  text-white" style="background-color:black;"><span style="color:white;">{{i.item.percent}}% off</span></span></td>
+                                    <td class=""><div style="display: flex; flex-direction: row; justify-content:around;">
+                                                        <a href="{% url 'removeSingleItem' i.item.id %}" style="margin-right:1.2rem;"><h5>-</h5></a>
+                                                        <h5>{{i.qty}}</h5>
+                                                        <a href="{% url 'addSingleItem' i.item.id %}" style="margin-left:1.2rem;"><h5>+</h5></a>
+                                                    </div>
+                                    </td>
+                                    <td class="">
+                                        <a class="product-remove" href="{% url 'removeItem' i.item.id %}">Remove</a>
+                                    </td>
+                                    </tr>
+                                {% endfor %} 
+                            </tbody>
+                        </table>
+                        
+                        <h5 class='pull-right'></h5>
+                        
+                    {% else %}
+                        <div class="row" style="margin-bottom:2rem;">
+                        <div class="col-md-12 col-md-offset-3">
+                            <div class="block text-center">
+                                <i class="fa fa-shopping-cart fa-4x"></i>
+                                <h2 class="text-center">Your cart is currently empty.</h2>
+                                
+                                <a href="{% url 'shop' %}" class="btn btn-main mt-20 btn-round-full">Return to shop</a>
+                        </div>
+                        </div>
+                        
+                    {% endif %}
+                    
+                {% else %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            
+                            <h2>Login To Add To Cart</h2>
+                            <a href="{% url 'signin' %}" class="btn btn-main btn-round-full"><i class="tf-ion-android-arrow-back"></i> Login</a>
+                            
+                        </div>
+                    </div>
+                {% endif %}
+              </form>
+            </div>
+          </div>
+        </div>
+        {% if  order.items.all %}
+        <div class="col-sm-4 " style="margin-top:1rem;">
+            
+            <div class="product-checkout-details">
+                  <div class="block " style="background: #C7C7C7; padding:0.7rem; border-radius:10px;">
+                     <h4 class="widget-title" >Order Summary</h4>
+                     
+                     
+                     
+                     <div class="summary-total">
+                       <span >Total</span>
+                        <span >₹{{order.get_total_amount|intcomma}}/-</span>
+                        
+                     </div>
+                     <br>
+                     <div class="summary-total">
+                        <span> </span>
+                        <span ><a href="{% url 'checkout' %}" class="btn btn-main pull-right btn-round-full btn-small">Proceed to Checkout</a></span>
+                     </div>
+                    
+                     
+                  </div>
+            </div>
+            
+            
+        </div>
+            {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

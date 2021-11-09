@@ -1,0 +1,98 @@
+{% extends 'basic.html' %}
+{% load humanize %}
+{% block content %}
+<section class="page-header" style="background:#0c0e0e;";>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name" style="color:white;">Wishlist</h1>
+					<ol class="breadcrumb">
+						<li><a href="{% url 'index' %}" style="color:white;">Home</a></li>
+                        
+						<li class="active" style="color:white;">Wishlist</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="page-wrapper">
+  <div class="cart shopping">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 ">
+                {% if messages %}
+									<ul class="messages">
+										{% for message in messages %}
+											{% if message.tags == 'success' %}
+												
+                        <div class="alert alert-primary alert-common alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <i class="tf-ion-close-circled"></i><span><strong>{{message}}</strong> Updated! </span> 
+                        </div>
+											{% elif message.tags == 'error' %}
+												
+                        <div class="alert alert-danger alert-common alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <i class="tf-ion-close-circled"></i><span>{{message}}</span> 
+                        </div>
+											{% endif %}
+										{% endfor %}
+									</ul>
+								{% endif %}
+          <div class="block">
+            <div class="product-list">
+              
+              {% if wishlist.items.all %}
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="">#</th>
+                      <th class="">Item</th>
+                      <th class="">Name</th>
+                      <th class="">Price</th>
+                      <th class="">Add To Cart</th>
+                      
+                      <th class=""></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for i in wishlist.items.all %}
+                        <tr class="">
+                            <td class="">{{forloop.counter}}</td>
+                            <td class=""><a href="{% url 'item' i.id %}"><img width="80" src="{{i.img1.url}}" alt="" /></a></td>
+                            <td class="">
+                                <div class="product-info">
+                                
+                                <a href="{% url 'item' i.id %}">{{i.name}} | {{i.flavour.name}}</a>
+                                </div>
+                            </td>
+                            <td class=""><strong>₹{{i.afterPrice|intcomma}} </strong></td>
+                            <td class="">
+                              {% if i.item.instock %}
+                                  <a class="product-remove" href="{% url 'addToCart' i.id %}">add to cart</a>
+                              {% else %}
+                                  <span class="product-remove" >Out Of Stock</span>
+                              {% endif %}
+                                
+                                
+                            </td>
+                            <td class=""><a href="{% url 'removeFromWishlist' i.id %}"><i class="fas fa-times"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% else %}
+                <h2>Wishlist All Empty <i class="far fa-frown-open"></i></h2>
+                <a href="{% url 'shop' %}" class='btn btn-main btn-round-full'>Shop <i class="fas fa-long-arrow-alt-right"></i></a>
+                {% endif %}
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

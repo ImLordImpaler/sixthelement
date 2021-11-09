@@ -1,0 +1,1 @@
+web: gunicorn proshop.wsgi --log-file -

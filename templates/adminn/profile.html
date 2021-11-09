@@ -1,0 +1,69 @@
+{% extends "adminn/adminBase.html" %}
+
+{% block content %}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Users</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Phone
+                      </th>
+                      <th>
+                        Email
+                      </th>
+                      <th>
+                        Gender
+                      </th>
+                      <th>
+                        Birth Date
+                      </th>
+                      <th class="text-right">
+                        Action
+                      </th>
+                    </thead>
+                    <tbody>
+                    {% for i in profile %}
+                      <tr>
+                        <td>
+                          {{i.user.username}}
+                        </td>
+                        <td>
+                          {{i.phone}}
+                        </td>
+                        <td>
+                          {{i.email}}
+                        </td>
+                        <td>
+                            {% if i.gender %}
+                                {{i.gender}}
+                            {% else %}
+                                No Record
+                            {% endif %}
+                          
+                        </td>
+                        <td>
+                          {{i.birth_date}}
+                        </td>
+                        <td class="text-right">
+                          <a href="" class="btn btn-primary btn-small btn-round">View?</a>
+                        </td>
+                      </tr>
+                     {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+{% endblock content %}

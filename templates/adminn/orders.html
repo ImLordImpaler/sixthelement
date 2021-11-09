@@ -1,0 +1,53 @@
+{% extends "adminn/adminBase.html" %}
+
+{% block content %}
+<div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <div class="card card-upgrade">
+              <div class="card-header text-center">
+                <h4 class="card-title">Your Orders</h3>
+                  <p class="card-category">Sixth Element</p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive table-upgrade">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Date
+                      </th>
+                      <th>
+                        Items
+                      </th>
+                      <th class="text-right">
+                        Action
+                      </th>
+                    </thead>
+                    <tbody>
+                    {% for i in orders %}
+                      <tr>
+                        <td>
+                          {{i.user.username}}
+                        </td>
+                        <td>
+                          {{i.date}}
+                        </td>
+                        <td>
+                          {{i.items.count}}
+                        </td>
+                        <td class="text-right">
+                          <a href="{% url 'orderDetail' i.id %}" class="btn btn-primary btn-sm btn-round">View?</a>
+                          <a href="{% url 'orderDelete' i.id %}" class="btn btn-danger btn-sm btn-round">Delete</a>
+                        </td>
+                      </tr>
+                    {% endfor %} 
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock content %}

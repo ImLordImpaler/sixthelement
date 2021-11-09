@@ -1,0 +1,164 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+<section class="signin-page account" style="background:url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80');">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="block text-center">
+          <a class="logo" href="index.html">
+            <img src="images/logo.png" alt="">
+          </a>
+          <h2 class="text-center" >Sixth Element</h2><br><br>
+          {% if messages %}
+									<ul class="messages">
+										{% for message in messages %}
+											{% if message.tags == 'warning' %}
+												
+                        <div class="alert alert-danger alert-common alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <i class="tf-ion-close-circled"></i><span>Already Applied Coupon</span> 
+                        </div>
+                      {% elif message.tags == 'success' %}
+												
+                        <div class="alert alert-success alert-common alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <i class="tf-ion-thumbsup"></i><span>Code Applied Successfully</span> 
+                        </div>
+										
+											{% elif message.tags == 'error' %}
+												
+                        <div class="alert alert-danger alert-common alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <i class="tf-ion-close-circled"></i><span>Wrong Code</span> 
+                        </div>
+                      {% elif message.tags == 'info' %}
+												
+                        <div class="alert alert-info alert-common alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <i class="tf-ion-android-checkbox-outline"></i><span>Code Removed</span> 
+                        </div>
+											{% endif %}
+										{% endfor %}
+									</ul>
+								{% endif %}
+          <div class="row">
+            
+            <div class="col-sm-12 col-md-6"  >
+              <div class="table-responsive" style="border-right: 1px solid #9197A5; padding-right:5px;">
+                  <table class="table table-borderless">
+                      
+                      
+                      
+                      <tbody>
+                          {% for i in order.items.all %}
+                              <tr>
+                                  <th scope="row">{{forloop.counter}}.</th>
+                                  
+                                  <td>{{i.item.name}}</td>
+                                  <td><small>x{{i.qty}}</small></td>
+                                  <td><strong>₹{{i.get_total}}/-</strong></td>
+                              </tr>
+                          {% endfor %}
+                            
+                      </tbody>
+                      
+                  </table>
+                  
+                  
+                  {% if order.coupon.order_items.all %}
+                    <div  style="border:1px solid green;  background:#CAF7B8; opacity:0.5;  display:flex; justify-content:space-between; padding:0 10px; align-items:center;" >
+                      <p style="color:#004D00;  font-size:1.5rem; margin-top:5px;"><strong><i class="fas fa-tags" style="color:#004D00; "></i> <small>{{code.tag}} applied! {{code.amount}}% off</small></strong></p>
+                      <a href="{% url 'remove-Coupon' order.id %}" ><i class="fas fa-times" style="color:#004D00; "></i></i></a>
+                    </div>
+                  {% endif %}
+                  
+                  <p class="text-right " style="color: black; margin-top:10px;">Total: <strong>₹{{order.final_amount}}/-</strong></p>
+                      
+                  </div>
+              </div>
+            
+            <div class="col-sm-12 col-md-6">
+              <form method="post" action="{% url 'paymenthandler' %}">
+              <button class="btn btn-main btn-small btn-round-full"  id="pay-btn">Pay Using Razorpay</button>
+              </form>
+            </div>
+          </div>
+          <div class='row ' style="margin-top:2rem; border-top:1px solid #A5A8AC; ">
+
+            <a href="" data-toggle="modal" data-target="#noEmail" style="">Have A Coupon?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Modal -->
+			<div class="modal  fade" id="noEmail">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i class="tf-ion-close"></i>
+				</button>
+				<div class="modal-dialog " role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<div class="modal-image">
+										<form method="post" action="{% url 'payment' billing_address.id  %}"> {% csrf_token %}
+                      <input type="text" class="form-control" placeholder="Enter Code" name="coupon_code" />
+                      <button class="btn btn-main btn-small btn-round-full"  type="submit"  style="margin-top:2rem;">Submit</button>
+                    </form>
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="product-short-details">
+										<h2 class="product-title"></h2>
+										<div class='d-inline justify-content-center mt-20'>
+											
+											
+										</div>
+										
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.modal -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+	var options = {
+		
+	// Enter the Key ID generated from the Dashboard
+	key: "{{ razorpay_merchant_key }}",
+		
+	// Amount is in currency subunits.
+	// Default currency is INR. Hence,
+	// 50000 refers to 50000 paise
+	amount: "{{ razorpay_amount }}",
+	currency: "{{ currency }}",
+		
+	// Your/store name.
+	name: "Sixth Element",
+	prefill: {
+      email: '{{order.billing_address.email}}',
+      contact: '{{order.billing_address.phone}}',
+      name: '{{order.billing_address.name}}'
+    },
+	// Pass the `id` obtained in the response of Step 1
+	order_id: "{{ razorpay_order_id }}",
+	callback_url: "{{ callback_url }}",
+  
+	};
+	
+	// initialise razorpay with the options.
+	var rzp1 = new Razorpay(options);
+	
+	// add event listner to the payment button.
+	document.getElementById("pay-btn").onclick = function (e) {
+	rzp1.open();
+	e.preventDefault();
+	};
+</script>
+{% endblock content %}

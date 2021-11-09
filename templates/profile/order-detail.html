@@ -1,0 +1,97 @@
+{% extends "basic.html" %}
+
+{% block content %}
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">Order #{{order.id}}</h1>
+					<ol class="breadcrumb">
+						<li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'dashboard' %}">Profile</a></li>
+						<li class="active">#{{order.id}}</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="page-wrapper">
+  	<div class="purchase-confirmation shopping">
+    	<div class="container">
+      		<div class="row">
+        		<div class="col-md-8 col-md-offset-2">
+          			<div class="block ">
+            			<div class="purchase-confirmation-details">
+				            <table id="purchase-receipt" class="table">
+				                <thead>
+									<tr>
+					                    <th><strong>Payment:</strong></th>
+					                    <th>{{order.payment_id}}</th>
+				                  	</tr>
+				                </thead>
+
+				                <tbody>
+
+				                  	<tr>
+				                    	<td class=""><strong>Payment Status:</strong></td>
+				                    	<td class="">Complete</td>
+				                  	</tr>
+
+
+				                  	<tr>
+				                    	<td><strong>Payment Id:</strong></td>
+				                    	<td>{{order.razorpay_id}}</td>
+				                  	</tr>
+				                  	<tr>
+				                    	<td><strong>Date:</strong></td>
+				                    	<td>{{order.date}}</td>
+				                  	</tr>
+				                  	<tr>
+				                    	<td><strong>Subtotal</strong></td>
+				                    	<td>
+				                      <small>₹</small>{{order.get_total_amount}}<small>/-</small></td>
+				                    </tr>
+
+				                    <tr>
+				                      	<td><strong>ReOrder?</strong></td>
+				                      	<td><button data-toggle="modal" data-target="#order-id" class="btn btn-main btn-small btn-round-full">ReOrder?</button></td>
+				                    </tr>
+				                </tbody>
+				            </table>
+              			</div>
+            		</div>
+          		</div>
+        	</div>
+      	</div>
+    </div>
+</div>
+                                    <!-- Modal -->
+										<div class="modal product-modal fade" id="order-id">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<i class="tf-ion-close"></i>
+											</button>
+											<div class="modal-dialog " role="document">
+												<div class="modal-content">
+													<div class="modal-body">
+														<div class="row">
+															<div class="col-md-4">
+																<h2>ReOrder?</h2>
+																<p>Are you sure you want to continue?</p>
+																<p>Sixth Element</p>
+															</div>
+															<div class="col-md-8">
+																{% for j in order.items.all %}
+																	<h4>{{j.item.name}} &nbsp;&nbsp;&nbsp;  x{{j.qty}} &nbsp;&nbsp;&nbsp;  ₹ {{j.get_total}}/-</h4>
+																	
+																{% endfor %}
+                                                                <hr>
+																<a href="{% url 'reorder' order.id %}" class="btn btn-main btn-large btn-round btn-small">Continue</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div><!-- /.modal -->
+{% endblock content %}

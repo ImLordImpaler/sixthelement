@@ -1,0 +1,242 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load humanize %}
+{% block content %}
+<div class="hero-slider">
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(static/img/banner-3.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-center">
+			 
+			 
+			 <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Welcome To Sixth Element </h1>
+			 <h3 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5" style="color:red; font-weight:800;"><i>Free Shipping</i> </h3>
+			
+			
+			<a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="{% url 'shop'%}">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(static/img/banner-1.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-left">
+          <h3 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1" style="color:white;"><strong>Sixth Element</strong></h3>
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Because You <br> Deserve The Best.</h1>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="{% url 'shop' %}">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(static/img/banner-2.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-right">
+          <h3 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1" style="color:white;"><strong>Sixth Element</strong></h3>
+          <h1 data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">Driven<br> By Science</h1>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" href="{% url 'shop' %}">Shop Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class="page-wrapper"  style="background: #FFEFBA;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */">
+	<div class="container">
+		<div class="row">
+			<div class="title">
+				<h2 style="font-weight:800;">SIXTH ELEMENT</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<h2>Welcome To Sixth Element</h2>
+				
+			</div>
+			<div class="col-md-8">
+				<h4> Science-Backed Ingredients </h4>
+				<p>Every ingredient in our supplements is backed by peer-reviewed scientific research demonstrating clear benefits.</p>
+				<h4>Because you deserve the Best</h4>
+				<p>Supplements with the highest quality ingredients and full transparency.</p>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="product-category section" >
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title text-center">
+					<h2>Today's Offers</h2>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="category-box category-box-2">
+					<a href="{% url 'shop' %}">
+						<img src="{% static 'poster_master.jpeg' %}" alt="" />
+						<div class="content">
+							
+						</div>
+					</a>	
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="category-box category-box-2">
+					<a href="{% url 'aboutus' %}">
+						<img src="{% static 'banner.jpg' %}" alt="" />
+						<div class="content">
+							
+						</div>
+					</a>	
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--ENd Popular Products-->
+
+<!--Start Trendy Products-->
+<section class="products section bg-gray">
+	<div class="container">
+		<div class="row">
+			<div class="title text-center">
+				<h2>Trendy Products</h2>
+			</div>
+		</div>
+		<div class="row">
+			{% for i in ran %}
+			<div class="col-sm-4">
+				<div class="product-item" style="border: 1px solid #A5A8AC; background-color: #A5A8AC" >
+                            <div class="card" style="">
+                            <a href="{% url 'item' i.id %}"><span class="badge" style="border-radius:0; background-color: black;">{{i.percent}}% off</span></a>
+                            <a href="{% url 'item' i.id %}"><img class="img-responsive" src="{{i.img1.url}}"  height="300" alt="Card image cap"></a>
+                            <div class="card-body"  >
+                                <center><a href="{% url 'item' i.id %}" class="btn btn-main btn-small btn-round-full" style=" color:black; margin-top:6px; margin-bottom:6px; background-color:white;"><strong>{{i.name}} <i class="fas fa-long-arrow-alt-right"></i></strong></a></center>
+                                
+                            </div>
+                            </div>
+                        </div>
+			<!-- Modal -->
+			<div class="modal  fade" id="{{i.id}}">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i class="tf-ion-close"></i>
+				</button>
+				<div class="modal-dialog " role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="modal-image">
+										<img class="img-responsive" src="{{i.thumbnail.url}}" alt="product-img" />
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="product-short-details">
+										<h2 class="product-title">{{i.name}} </h2>
+										<div class='d-inline justify-content-center mt-20'>
+											<h5 class=""><del>₹{{i.price|intcomma}}</del> <span class='btn btn-main btn-small btn-round-full'>{{i.percent}}% off</span></h5>
+											<h4 class="">₹{{i.afterPrice|intcomma}}</h4>	
+										</div>
+										<div class='d-flex justify-content-center mt-20' style="border-top:1px solid #A5A8AC; padding-top:0.5rem;">
+											{% if i.flavour.name %}
+											<button class='btn btn-main btn-small btn-round-full'>{{i.flavour.name}} </button>
+											
+											{% endif %}
+											<button class='btn  btn-small btn-round-full'>{{i.qty}}</button>	
+										</div>
+										<p style="margin-top:2rem;"></p>
+										<a href="{% url 'addToCart' i.id %}" class="btn btn-main">Add To Cart</a>
+										<a href="{% url 'item' i.id %}" class="btn btn-transparent">View Product Details</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.modal -->
+			
+			</div>
+			
+			{% endfor %}
+			
+		
+		
+
+		</div>
+		<div class="row"> 
+			<center><a href="{% url 'shop' %}" class='btn btn-main btn-round-full'>View More? <i class="fas fa-long-arrow-alt-right"></i></a></center>
+		</div>
+	</div>
+</section>
+<!--End Trendy Products-->
+
+<section class="page-wrapper" style="background: #FFEFBA;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	">
+	<div class="row">
+			<div class="col-md-12">
+				<div class="title text-center">
+					<h2>Contact Our Sales Team</h2>
+				</div>
+			</div>
+	</div>
+	<div class="contact-section">
+		<div class="container">
+			<div class="row">
+				<!-- Contact Form -->
+				<div class="contact-form col-md-6 " >
+					<form id="contact-form" method="post" action="{% url 'index' %}" role="form"> {% csrf_token%}
+					
+						<div class="form-group">
+							
+							{% render_field form.name type="text" class="form-control" style="border: 1px solid #949494; border-radius:10px;" placeholder='Enter Your Name*' %}
+						</div>
+						
+						<div class="form-group">
+							
+							{% render_field form.phone type="text" class="form-control" style="border: 1px solid #949494; border-radius:10px;" placeholder='Enter Your Phone Number*' %}
+						</div>
+						
+						<div class="form-group">
+							
+							{% render_field form.message type="text" class="form-control" style="border: 1px solid #949494; border-radius:10px;" placeholder='Your Message' %}
+						</div>
+						
+						<div id="mail-success" class="success">
+							Thank you. The Mailman is on His Way :)
+						</div>
+						
+						<div id="mail-fail" class="error">
+							Sorry, don't know what happened. Try later :(
+						</div>
+						
+						<div id="cf-submit">
+							<button type="submit" id="contact-submit" class="btn btn-transparent" value="Submit">Submit <i class="fas fa-long-arrow-alt-right"></i></button>
+						</div>						
+						
+					</form>
+				</div>
+				<!-- ./End Contact Form -->
+				
+				<!-- Contact Details -->
+				<div class="contact-details col-md-6 " >
+					<div class="google-map">
+						<img src="https://images.unsplash.com/photo-1603287681836-b174ce5074c2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80" class="img-thumbnail" width="600" alt="Responsive image">
+					</div>
+					
+				</div>
+				<!-- / End Contact Details -->
+					
+				
+			
+			</div> <!-- end row -->
+		</div> <!-- end container -->
+	</div>
+</section>
+{% endblock content %}

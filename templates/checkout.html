@@ -1,0 +1,184 @@
+{% extends 'basic.html' %}
+{% load widget_tweaks %}
+{% load humanize %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+   <div class="checkout shopping">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-8">
+               {% if messages %}
+									<ul class="messages">
+										{% for message in messages %}
+											{% if message.tags == 'warning' %}
+												
+                        <div class="alert alert-danger alert-common alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <i class="tf-ion-close-circled"></i><span>No User Record Found!</span> 
+                        </div>
+											{% elif message.tags == 'error' %}
+												
+                        <div class="alert alert-danger alert-common alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <i class="tf-ion-close-circled"></i><span>Select A Valid State</span> 
+                        </div>
+											{% endif %}
+										{% endfor %}
+									</ul>
+					{% endif %}
+               {% if profile.address.all %}
+               <h4 class="widget-title">Your Previous Address <strong>{{profile.address.count}}</strong></h4>
+               <div class="row">
+                  
+                  {% for i in profile.address.all %}
+                  <div class="col-md-4 col-sm-6 col-xs-12" >
+                     <div class="pricing-item text-center" style="border:1px solid #D3D3D3; border-radius:10px; background:#D9D9DB;">
+                        
+                        <!-- plan name & value -->
+                        <div class="price-title">
+                           <h3>{{i.name}}</h3>
+                           
+                           <p>{{i.home}}</p>
+                           <strong class="value">{{i.phone}}</strong><br>
+                           <strong class="value">{{i.email}}</strong>
+                           
+                        </div>
+                        <!-- /plan name & value -->
+                        
+                        <!-- plan description -->
+                        <ul>
+                           <li><i class="tf-ios-arrow-forward"></i> {{i.state}}</li>
+                        </ul>
+                        <br>
+                        <a class="btn btn-main btn-round-full btn-small" style="margin-bottom:0.5rem;" href="{% url 'payment' i.id %}">Use This Address</a>
+                        
+                        
+                     </div>
+                  </div>
+                  {% endfor %}
+               </div> 
+               
+               {% endif %}
+               <hr>
+               <div class="block billing-details">
+                  <h4 class="widget-title">Billing Details</h4>
+                  <form class="checkout-form" action="{% url 'checkout' %}" method="post">  {% csrf_token %}
+                     <div class="checkout-country-code clearfix">
+                        <div class="form-group">
+                           <label for="full_name">Name</label>
+                           {% render_field form.name type="text" class="form-control"  %}
+                        </div>
+                        <div class="form-group" >
+                           <label for="full_name">Phone</label>
+                           {% render_field form.phone type="tel" class="form-control " %}
+                        </div>
+                     </div>
+                     <div class="checkout-country-code clearfix">
+                        <div class="form-group">
+                           
+                           <label for="full_name">Email </label>
+
+                           {% render_field form.email type="text" class="form-control"  %}
+                           
+                        </div>
+                        <div class="form-group" >
+                           
+                           
+                           {% render_field form.state  class="form-control" style="height:5rem;"  %}
+                        </div>
+                     </div>
+                     
+                    
+                        <div class="form-group">
+                           <label for="full_name">Address</label>
+                           {% render_field form.street_address type="text" class="form-control" %}
+                        </div>
+                        
+                     
+                     
+                     <button  class="btn btn-main  btn-round-full margin-top-20" type="submit">Procced To Payment</button>
+                     
+                     <button  class="btn btn-main  btn-round-full margin-top-20"  data-toggle="modal" data-target="#noEmail">आपके पास ईमेल नहीं है / Don't Have An Email?</button>
+                  </form>
+               </div>
+               
+            </div>
+            <div class="col-md-4">
+               <div class="product-checkout-details">
+                  <div class="block">
+                     <h4 class="widget-title">Order Summary</h4>
+                     {% for i in order.items.all %}
+                     <div class="media product-card">
+                        <a class="pull-left" href="product-single.html">
+                           <img class="media-object" src="{{i.item.img1.url}}" alt="Image" />
+                        </a>
+                        <div class="media-body">
+                           <h4 class="media-heading"><a href="product-single.html">{{i.item.name}}</a></h4>
+                           <p class="price">{{i.qty}} x ₹{{i.item.afterPrice|intcomma}}</p>
+                           <a href="{% url 'removeItem' i.item.id %}"><span class="remove" >Remove</span></a>
+                        </div>
+                     </div>
+                     {% endfor %}
+                     <div class="discount-code">
+                        <p><small>Because You Deserve The Best | <span style="color:black; font-weight: 800;">SIXTH ELEMENT</span></small></p>
+                     </div>
+                     
+                     <div class="summary-total">
+                        <span>Total</span>
+                        <span>₹{{order.get_total_amount|intcomma}}</span>
+                     </div>
+                     <div class="verified-icon">
+                        <img src="{% static 'verified.png'%}">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+   <!-- Modal -->
+   <div class="modal fade" id="coupon-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-body">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+			<!-- Modal -->
+			<div class="modal  fade" id="noEmail">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i class="tf-ion-close"></i>
+				</button>
+				<div class="modal-dialog " role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="modal-image">
+										<img class="img-responsive" src="{% static 'img/noproblem.png' %}" alt="product-img" />
+									</div>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<div class="product-short-details">
+										<h2 class="product-title"></h2>
+										<div class='d-inline justify-content-center mt-20'>
+											
+											<h2 class="">Call Us At: <br> +91-8851661538</h2>	
+										</div>
+										
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.modal -->
+{% endblock content %}

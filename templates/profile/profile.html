@@ -1,0 +1,35 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block content %}
+
+<section class="user-dashboard page-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="list-inline dashboard-menu text-center">
+					<li><a  href="{% url 'dashboard' %}">Dashboard</a></li>
+					<li><a href="{% url 'orders' %}">Orders</a></li>
+					<li><a  href="{% url 'address' %}">Address</a></li>
+					<li><a class="active" href="{% url 'profile' %}">Profile Details</a></li>
+				</ul>
+        <div class="dashboard-wrapper dashboard-user-profile">
+          <div class="media">
+            <div class="pull-left text-center" href="#!">
+              <img class="media-object user-img" src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png" alt="Image">
+              <a href="#x" class="btn btn-transparent mt-20">Change Image</a>
+            </div>
+            <div class="media-body">
+              <ul class="user-profile-list">
+                <li><span>Username:</span>{{profile.user.username}}</li>
+                <li><span>Email:</span>{{profile.email}}</li>
+                <li><span>Phone:</span>{{profile.phone}}</li>
+                <li><span>Date of Birth:</span>{{profile.birth_date}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

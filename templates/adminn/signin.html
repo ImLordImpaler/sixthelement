@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="icon" type="image/png" href="{% static 'admin/img/muscle.ico' %}">
+    
+    <title>Admin Login</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'admin/css/bootstrap.min.css'%}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'admin/signin.css' %}" rel="stylesheet">
+  </head>
+  <body class="text-center" style='background: #0B486B;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #F56217, #0B486B);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #F56217, #0B486B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+'>
+    <form class="form-signin" method="post" action="{% url 'adminLogin' %}" style="border-radius:10px; background-color:white;">
+        <img class="mb-4" src="{% static 'img/logo.png'%}" alt="" width="72" height="72">
+                                    <div class="row">
+                                        {% if messages %}
+                                            <ul class="messages">
+                                                {% for message in messages %}
+                                                    {% if message.tags == 'warning' %}
+                                                        <div class="alert alert-danger" role="alert">
+                                                            No User Record Found
+                                                        </div>
+                                                    {% elif message.tags == 'error' %}
+                                                        <div class="alert alert-warning" role="alert">
+                                                            Access Denied. Not Root User
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input type="text" id="inputEmail" name="uname" class="form-control" placeholder="Enter Admin Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="Password" required>
+        <div class="checkbox mb-3">
+            
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+    </form>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!-- 
+THEME: Aviato | E-commerce template
+VERSION: 1.0.0
+AUTHOR: Themefisher
+
+HOMEPAGE: https://themefisher.com/products/aviato-e-commerce-template/
+DEMO: https://demo.themefisher.com/aviato/
+GITHUB: https://github.com/themefisher/Aviato-E-Commerce-Template/
+
+WEBSITE: https://themefisher.com
+TWITTER: https://twitter.com/themefisher
+FACEBOOK: https://www.facebook.com/themefisher
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  ================================================== -->
+  <meta charset="utf-8">
+  <title>Sixth Element | Fitness</title>
+
+  <!-- Mobile Specific Metas
+  ================================================== -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Sixth Element | Fitness">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="author" content="Rachit Saxena">
+  <meta name="generator" content="don't know what generator is.">
+  
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.png'%}" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+  <!-- Themefisher Icon font -->
+  <link rel="stylesheet" href="{% static 'plugins/themefisher-font/style.css'%}">
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css'%}">
+  
+  <!-- Animate css -->
+  <link rel="stylesheet" href="{% static 'plugins/animate/animate.css'%}">
+  <!-- Slick Carousel -->
+  <link rel="stylesheet" href="{% static 'plugins/slick/slick.css'%}">
+  <link rel="stylesheet" href="{% static 'plugins/slick/slick-theme.css'%}">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/style.css'%}">
+
+</head>
+
+<body id="body">
+
+<!-- Start Top Header Bar -->
+<section class="top-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<div class="contact-number">
+					<i class="tf-ion-ios-telephone"></i>
+					<span>+91-8851661538</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<!-- Site Logo -->
+				<div class="logo text-center">
+					<a href="{% url 'index' %}">
+						<img src="{% static 'img/logo.png' %}" />
+					</a>
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<!-- Cart -->
+				<ul class="top-menu text-right list-inline">
+					<li class="dropdown search dropdown-slide">
+						<a href="{% url 'cart' %}" class="dropdown-toggle" ><i class="fas fa-shopping-cart"></i>Cart</a>	
+					</li><!-- / Search -->
+					
+						<li class="dropdown search dropdown-slide">
+							<a href="{% url 'wishlist' %}" class="dropdown-toggle" ><i class="fas fa-heart"></i>Wishlist</a>	
+						</li><!-- / Search -->					
+						{% if user.is_authenticated  %}
+						<li class="dropdown cart-nav dropdown-slide">
+							<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+									class="fas fa-user"></i>{{user}}</a>
+							<div class="dropdown-menu cart-dropdown">
+								
+								
+
+								<div class="cart-summary">
+									<span>Welcome Back,</span>
+									<span class="total-price">{{user}}</span>
+								</div>
+								<ul class="text-center cart-buttons">
+									<li><a href="{% url 'dashboard' %}" class="btn btn-small">Profile</a></li>
+									<li><a href="{% url 'logoutPage' %}" class="btn btn-small btn-solid-border">Logout</a></li>
+								</ul>
+							</div>
+
+						</li><!-- / Cart -->
+
+				
+					
+					{% else %}
+						<li class="dropdown search dropdown-slide">
+							<a href="{% url 'signin' %}" class="dropdown-toggle" ><i class="fas fa-user-circle"></i>Login</a>	
+						</li><!-- / Search -->
+					{% endif %}
+					
+					
+					
+				</ul><!-- / .nav .navbar-nav .navbar-right -->
+			</div>
+		</div>
+	</div>
+</section><!-- End Top Header Bar -->
+
+<style>
+.top-header .container {
+  padding-top: 35px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dedede;
+}
+</style>
+
+<!-- Main Menu Section -->
+<section class="menu">
+	<nav class="navbar navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<h2 class="menu-title">Main Menu</h2>
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+
+			</div><!-- / .navbar-header -->
+
+			<!-- Navbar Links -->
+			<div id="navbar" class="navbar-collapse collapse text-center">
+				<ul class="nav navbar-nav">
+
+					<!-- Home -->
+					<li class="dropdown ">
+						<a href="{% url 'index' %}">Home</a>
+					</li><!-- / Home -->
+					<li class="dropdown ">
+						<a href="{% url 'shop' %}">Shop</a>
+					</li><!-- / Home -->
+					
+					<li class="dropdown ">
+						<a href="{% url 'aboutus' %}">About Us</a>
+					</li><!-- / Home -->
+					<li class="dropdown ">
+						<a href="{% url 'contact' %}">Contact Us</a>
+					</li><!-- / Home -->
+
+					<li class="dropdown ">
+						<a href="http://verify.senutrition.in">Verify </a>
+					</li><!-- / Home -->
+
+
+					
+				</ul><!-- / .nav .navbar-nav -->
+
+			</div>
+			<!--/.navbar-collapse -->
+		</div><!-- / .container -->
+	</nav>
+</section>
+
+{% block content %}{% endblock content %}
+
+
+
+
+<footer class="footer section text-center" style="background-color:#000000; position:absolute; width:100%; ">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="social-media">
+					
+					<li>
+						<a href="https://www.instagram.com/sixthelementindia/">
+							<i class="tf-ion-social-instagram"></i>
+						</a>
+					</li>
+					
+					
+				</ul>
+				<ul class="footer-menu text-uppercase">
+					<li>
+						<a href="{% url 'tandC' %}" style="color:white;">Terms And Conditions</a>
+					</li>
+					<li>
+						<a href="{% url 'policy' %}" style="color:white;">RETURN POLICY</a>
+					</li>
+					<li>
+						<a href="{% url 'privacyPolicy' %}" style="color:white;">PRIVACY POLICY</a>
+					</li>
+					<li>
+						<a href="{% url 'shippingPolicy' %}" style="color:white;">SHIPPING POLICY</a>
+					</li>
+					<li>
+						<a href="{% url 'contact' %}" style="color:white;">CONTACT Us</a>
+					</li>
+					<li>
+						<a href="{% url 'shop' %}" style="color:white;">SHOP</a>
+					</li>
+					<li>
+						<a href="{% url 'aboutus' %}" style="color:white;">About Us</a>
+					</li>
+					
+					
+				</ul>
+				<p class="copyright-text"> &copy;Sixth Element 2021</p>
+			</div>
+		</div>
+	</div>
+</footer>
+
+    <!-- 
+    Essential Scripts
+    =====================================-->
+    
+    <!-- Main jQuery -->
+    <script src="{% static 'plugins/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Bootstrap 3.1 -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- Bootstrap Touchpin -->
+    <script src="{% static 'plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js' %}"></script>
+    <!-- Instagram Feed Js -->
+    <script src="{% static 'plugins/instafeed/instafeed.min.js' %}"></script>
+    <!-- Video Lightbox Plugin -->
+    <script src="{% static 'plugins/ekko-lightbox/dist/ekko-lightbox.min.js' %}"></script>
+    <!-- Count Down Js -->
+    <script src="{% static 'plugins/syo-timer/build/jquery.syotimer.min.js' %}"></script>
+
+    <!-- slick Carousel -->
+    <script src="{% static 'plugins/slick/slick.min.js' %}"></script>
+    <script src="{% static 'plugins/slick/slick-animation.min.js' %}"></script>
+
+    <!-- Google Mapl -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+    <script type="text/javascript" src="{% static 'plugins/google-map/gmap.js' %}"></script>
+
+    <!-- Main Js File -->
+    <script src="{% static 'js/script.js' %}"></script>
+    
+
+
+  </body>
+  </html>

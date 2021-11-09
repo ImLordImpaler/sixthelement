@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="">
+  <link rel="icon" type="image/png" href="{% static 'admin/img/muscle.ico' %}">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+   Admin Panel 
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!-- CSS Files -->
+  <link href="{% static 'admin/css/bootstrap.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'admin/css/now-ui-dashboard.css?v=1.5.0' %}" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="orange">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+        <a href="{% url 'adminindex' %}" class="simple-text logo-mini">
+          SE
+        </a>
+        <a href="{% url 'adminindex' %}" class="simple-text logo-normal">
+          Sixth Element
+        </a>
+      </div>
+      <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <ul class="nav">
+          <li class=" mt-5">
+            <a href="{% url 'adminindex' %}">
+              <i class="now-ui-icons media-2_sound-wave"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'allOrders' %}">
+              <i class="now-ui-icons health_ambulance"></i>
+              <p>Orders</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'adminprofile' %}">
+              <i class="now-ui-icons business_badge"></i>
+              <p>Profiles</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'allProducts' %}">
+              <i class="now-ui-icons education_atom"></i>
+              <p>Items</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'enquiry' %}">
+              <i class="now-ui-icons education_atom"></i>
+              <p>Enquiries</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'coupons' %}">
+              <i class="now-ui-icons education_atom"></i>
+              <p>Coupons</p>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel" id="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#pablo">Admin</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            
+            <ul class="navbar-nav">
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="now-ui-icons users_single-02"></i>
+                  
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  
+                  <a class="dropdown-item" href="{% url 'adminLogout' %}">Logout?</a>
+                </div>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="panel-header panel-header-sm">
+       
+      </div>
+      <div class="content">
+        {% block content %}{% endblock content %}
+      </div>
+      <footer class="footer">
+        <div class=" container-fluid ">
+          <nav>
+            <ul>
+              <li>
+                <a href="">
+                  RachitSaxena
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="">
+                  Blog
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright" id="copyright">
+            &copy; <script>
+              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+            </script>, Designed by <a href="" target="_blank">SR</a>. Coded by <a href="" target="_blank">RachitSaxena</a>.
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="{% static 'admin/js/core/jquery.min.js' %}"></script>
+  <script src="{% static 'admin/js/core/popper.min.js' %}"></script>
+  <script src="{% static 'admin/js/core/bootstrap.min.js' %}"></script>
+  <script src="{% static 'admin/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+  <!--  Google Maps Plugin    -->
+  
+  <!-- Chart JS -->
+  <script src="{% static 'admin/js/plugins/chartjs.min.js' %}"></script>
+  <!--  Notifications Plugin    -->
+  <script src="{% static 'admin/js/plugins/bootstrap-notify.js' %}"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{% static 'admin/js/now-ui-dashboard.min.js?v=1.5.0' %}" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  
+ 
+</body>
+
+</html>

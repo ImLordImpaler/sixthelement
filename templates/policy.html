@@ -1,0 +1,57 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+
+
+<section class="page-header" style="background:url('https://images.unsplash.com/32/Mc8kW4x9Q3aRR3RkP5Im_IMG_4417.jpg?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')";>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name" style="color:white;">Return Policy</h1>
+					<ol class="breadcrumb">
+						<li><a href="{% url 'index' %}" style="color:white;">Home</a></li>
+						<li class="active" style="color:white;">Return Policy</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="about section">
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-md-12">
+				<h2 class="mt-40">CANCELLATION POLICY</h2>
+				<p>All cancellations will be accepted before the order has been packaged and shipped. Once the order has been packed, cancellations will not be accepted. After the order has been shipped, only return or exchange will be available which will be accepted after the order is received by the customer. Multiple order cancellations will lead to the account being added in our COD Blacklist.</p>
+				<a href="{% url 'shop' %}" class="btn btn-main mt-20 btn-round-full">Shop</a>
+			</div>
+		</div>
+		
+	</div>
+</section>
+<section class="about section">
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-md-12">
+				<h2 class="mt-40">RETURN POLICY</h2>
+				<ol>
+                    <li><p><span style="color:black;">1. </span>All products can be returned or exchanged if the request is raised within 3 days.</p></li>
+
+                    <li><p><span style="color:black;">2.</span>	Returns are accepted, as long as the items you are returning are in the same condition in which you received them, i.e., in their original seal and undamaged/unopened packaging.</p></li>
+                    <li><p><span style="color:black;">3.</span>	The shipping cost for the return of the product needs to be borne by the customer.</p></li>
+                    <li><p><span style="color:black;">4.</span>	Customer would need to coordinate with the team via Phone call.</p></li>
+                    <li><p><span style="color:black;">5.</span>	If you receive a damaged/defective product, contact us within 24 hours of receiving the product on senutritionindia@gmail.com. Once the complaint is raised, you have to send us a picture of your damaged/defective product along with the description of the damage at senutritionindia@gmail.com  </p></li>
+                </ol>
+				
+                <a href="{% url 'index' %}" class="btn btn-main mt-20 btn-round-full">Home</a>
+			</div>
+		</div>
+		
+	</div>
+</section>
+
+{% endblock content %}

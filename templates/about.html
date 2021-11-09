@@ -1,0 +1,78 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+
+
+<section class="page-header" style="background:#0c0e0e";>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name" style="color:white;">About Us</h1>
+					<ol class="breadcrumb">
+						<li><a href="{% url 'index' %}" style="color:white;">Home</a></li>
+						<li class="active" style="color:white;">About us</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="about section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<img class="img-responsive" src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80">
+			</div>
+			<div class="col-md-6">
+				<h2 class="mt-40">About Sixth Element</h2>
+				<p>Our commitment has always been to assist fitness professionals and enthusiasts reach new levels in training and performance. We take it as our responsibility to ensure that our products meet the needs of athletes in all major sports, bodybuilding and powerlifting.</p>
+				<p>Sixth Element has a clear and laser-like focus to make the most powerful and effective supplements available with proven results and unwanted fillers. </p>
+				<p>Sixth Element’s vision is to change lives through proper guidance on nutrition and supplementation based on scientific research because you deserve the best.</p>
+				<a href="{% url 'shop' %}" class="btn btn-main mt-20 btn-round-full">Shop</a>
+			</div>
+		</div>
+		
+	</div>
+</section>
+
+<section class="team-members " style="margin-bottom: 2rem;">
+	<div class="container">
+		<div class="row">
+			<div class="title"><h2>Our Athletes</h2></div>
+		</div>
+		<div class="row">
+			
+			<div class="col-md-3">
+				<div class="team-member text-center">
+					<a href="https://www.instagram.com/ravipawar_official/"><img class="img-circle" src="{% static 'img/ravi_athlete.png' %}" width="250"></a>
+					<a href="https://www.instagram.com/ravipawar_official/"><h4>Ravi Pawar</h4></a>
+					<a href="https://www.instagram.com/ravipawar_official/"><p>Ambassador</p></a>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="team-member text-center">
+					<a href="https://www.instagram.com/sehrawat23deepak/"><img class="img-circle" src="{% static 'img/deepak_athlete.png' %}" width="250"></a>
+					<a href="https://www.instagram.com/sehrawat23deepak/"><h4>Deepak Sehrawat</h4></a>
+					<a href="https://www.instagram.com/sehrawat23deepak/"><p>Ambassador</p></a>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="team-member text-center">
+					<a href="https://www.instagram.com/monudagar07/"><img class="img-circle" src="{% static 'img/monu_athlete.png' %}" width="250"></a>
+					<a href="https://www.instagram.com/monudagar07/"><h4>Monu Dagar</h4></a>
+					<a href="https://www.instagram.com/monudagar07/"><p>Ambassador</p></a>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="team-member text-center">
+					<img class="img-circle" src="https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg" width="250">
+					<h4>You Can Be Next</h4>
+					<p>Ambassador</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock content %}

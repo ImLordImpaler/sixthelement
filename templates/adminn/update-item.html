@@ -1,0 +1,156 @@
+{% extends "adminn/adminBase.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 ">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Update Item</h5>
+              </div>
+              <div class="card-body">
+                <form method="post" action="{% url 'updateProduct' product.id %}" enctype="multipart/form-data"> {% csrf_token %}
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <label>Name:</label>
+                      {% render_field form.name type="text" class="form-control" style="border: 1px solid #A5A8AC;" %}
+                    </div>
+                    <div class="col-sm-6">
+                      <label>Price:</label>
+                      {% render_field form.price type="text" class="form-control" style="border: 1px solid #A5A8AC;" %}
+                    </div>
+                  </div>
+                  <div class="row mt-5">
+                    <div class="col-sm-4">
+                        <label>Category:</label>
+                        {% render_field form.category type="select" class="form-control" style="border: 1px solid #A5A8AC;" %}
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Qty:</label>
+                        {% render_field form.qty type="select" class="form-control" style="border: 1px solid #A5A8AC;" %}
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Flavour::</label>
+                        {% render_field form.flavour type="select" class="form-control" style="border: 1px solid #A5A8AC;" %}
+                    </div>
+                  </div>
+                  <div class="row mt-5">
+                    <div class="col-sm-4">
+                        <label>Serving:</label>
+                        {% render_field form.servings type="select" class="form-control" style="border: 1px solid #A5A8AC;" %}
+                    </div>
+                    <div class="col-sm-4">
+                        <label>inStock:</label>
+                        {% render_field form.instock  class="form-control" style="border: 1px solid #A5A8AC;" %}
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Percent Off:</label>
+                        {% render_field form.percent type="select" class="form-control" style="border: 1px solid #A5A8AC;" %}
+                    </div>
+                  </div>
+                  <div class="row mt-5">
+                    <div class="col-sm-2">
+                      {% render_field form.img1  class="form-control"  %}
+                    </div>
+                    <div class="col-sm-2">
+                    {% render_field form.img2  class="form-control"  %}
+                    </div>
+                    <div class="col-sm-2">
+                    {% render_field form.img3  class="form-control"  %}
+                    </div>
+                    <div class="col-sm-2">
+                    {% render_field form.img4  class="form-control"  %}
+                    </div>
+                    <div class="col-sm-2">
+                    {% render_field form.img5  class="form-control"  %}
+                    </div>
+                    <div class="col-sm-2">
+                    {% render_field form.img6  class="form-control"  %}
+                    </div>
+                  </div>
+                  <div class="row">
+                  </div>
+                  
+                  <div class="row">
+                    <button type="submit" class="btn btn-primary btn-round ml-3" >Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+</div>
+<div class="row">
+        <div class="col-lg-3">
+            <div class="card card-chart">
+              <div class="card-header">
+                
+                
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <img class="img-thumbnail" src="{{product.img1.url}}" />
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-chart">
+              <div class="card-header">
+                
+                
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <img class="img-thumbnail" src="{{product.img2.url}}" />
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-chart">
+              <div class="card-header">
+                
+                
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <img class="img-thumbnail" src="{{product.img3.url}}" />
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card card-chart">
+              <div class="card-header">
+                
+                
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <img class="img-thumbnail" src="{{product.img4.url}}" />
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+
+</div>
+{% endblock content %}

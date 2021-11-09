@@ -1,0 +1,37 @@
+{% extends 'adminn/adminBase.html' %}
+
+{% block content %}
+<div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <div class="card card-upgrade">
+              <div class="card-header text-center">
+                <h4 class="card-title">Coupon <strong>{{coupon.tag}}</strong></h4>
+                <h5>Count: {{count}}</h5>
+                  <p class="card-category">Sixth Element</p>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive table-upgrade">
+                  <table class="table">
+                    
+                    <tbody>
+                    {% for i in orders %}
+                      <tr>
+                        <td>{{i}}</td>
+                        {% for j in i.items.all %}
+                            <td class="text-right"><strong>{{j.item.name}}</strong> x <strong>{{j.qty}}</strong> x <strong>{{j.get_total}}</strong></td>
+                        {% endfor %}
+                        
+                      </tr>
+                    {% endfor %}
+                      
+                      
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+{% endblock content %}

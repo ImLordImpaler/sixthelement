@@ -1,0 +1,146 @@
+{% extends 'adminn/adminBase.html' %}
+
+{% block content %}
+    <div class='container'>
+        <div class='row'>
+            <div class='col-sm-4'>
+                <div class="card card-chart" style="border-bottom: 1px solid black;">
+                <div class="card-header">
+                    <h5 class="card-category">Sixth Element</h5>
+                    <h4 class="card-title">Orders</h4>
+                    <center><h3>{{ordersCount}}</h3></center>
+                    
+                </div>
+               
+                
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class="card card-chart" style="border-bottom: 1px solid black;">
+                <div class="card-header">
+                    <h5 class="card-category">Sixth Element</h5>
+                    <h4 class="card-title">Items</h4>
+                    <center><h3>{{itemsCount}}</h3></center>
+                    
+                </div>
+               
+                
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                <div class="card card-chart" style="border-bottom: 1px solid black;">
+                <div class="card-header">
+                    <h5 class="card-category">Sixth Element</h5>
+                    <h4 class="card-title">Enquiries</h4>
+                    <center><h3>{{enquiry}}</h3></center>
+                    
+                </div>
+               
+                
+                </div>
+            </div>  
+        </div>
+    </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Your Orders</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        User
+                      </th>
+                      <th>
+                        Date
+                      </th>
+                      <th>
+                        Items
+                      </th>
+                      <th class="text-right">
+                        Action
+                      </th>
+                    </thead>
+                    <tbody>
+                            {% for i in orders %}
+                                
+                                <tr>
+                                    <td>
+                                    {{i.user.username}}
+                                    </td>
+                                    <td>
+                                    {{i.start_date}}
+                                    </td>
+                                    <td>
+                                    {{i.items.count}}
+                                    </td>
+                                    <td class="text-right">
+                                    <a href="{% url 'orderDetail' i.id %}" class="btn btn-primary btn-sm btn-round">View?</a>
+                                    </td>
+                                </tr>
+                                
+                                
+                            {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="{% url 'allOrders' %}" class='btn btn-primary btn-round'>All Orders</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Your Items</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Price
+                      </th>
+                      <th>
+                        Qty
+                      </th>
+                      <th class="text-right">
+                        Action
+                      </th>
+                    </thead>
+                    <tbody>
+                        {% for i in items %}
+                      <tr>
+                        <td>
+                          {{i.name}}
+                        </td>
+                        <td>
+                          {{i.qty}}
+                        </td>
+                        <td>
+                          {{i.flavour.name}}
+                        </td>
+                        <td class="text-right">
+                          <a href="{% url 'updateProduct' i.id %}" class="btn btn-primary btn-sm btn-round">View?</a>
+                        </td>
+                      </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="{% url 'allProducts' %}" class='btn btn-primary btn-round'>All Items</a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+{% endblock content %}
