@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render , redirect
+from django.shortcuts import get_object_or_404, render , redirect , HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 from .forms import *
@@ -248,13 +248,22 @@ def addToCart(request , pk):
 
     if order_qs.exists():
         order = order_qs[0]
+
+        
+        
         if order.items.filter(item__id = item.id).exists():
             orderItem.qty = orderItem.qty + 1
             orderItem.save()
             messages.success(request , 'Qty updated')
+            
             return redirect('cart')
         else:
             order.items.add(orderItem)
+            order.coupon_bool = False
+            order.coupon = None
+            order.final_amount = order.get_total_amount()
+            
+            order.save()
             messages.warning(request , 'new item')
             return redirect('cart')
     else:
@@ -427,115 +436,132 @@ def checkout(request):
         order.final_amount= order.get_total_amount()
     order.save()
 
+    # Coupon Sample Space 
+    coupons = list(Coupons.objects.all())
+    couponList = [str(x.tag) for x in coupons]
+
+
+
+    
+    
     if request.method == 'POST':
-        try:
+        if 'paymentPage' in request.POST:
+            
+            try:
+                
+                form = CheckoutForm(request.POST)
+                if form.is_valid():
+                    name = form.cleaned_data['name']
+                    street_address = form.cleaned_data['street_address']
+                    phone = form.cleaned_data['phone']
+                    state = form.cleaned_data['state']
+                    email = form.cleaned_data['email']
 
-            form = CheckoutForm(request.POST)
-            if form.is_valid():
-                name = form.cleaned_data['name']
-                street_address = form.cleaned_data['street_address']
-                phone = form.cleaned_data['phone']
-                state = form.cleaned_data['state']
-                email = form.cleaned_data['email']
+                    if form.cleaned_data['state'] != '--':
+                        bill = Billing_Address.objects.create(email=email,name=name, user=request.user , home=street_address , phone=phone , state=state )
 
-                if form.cleaned_data['state'] != '--':
-                    bill = Billing_Address.objects.create(email=email,name=name, user=request.user , home=street_address , phone=phone , state=state )
+                        bill.save()
 
-                    bill.save()
+                        if not profile.address.filter(home=bill).exists():
 
-                    if not profile.address.filter(home=bill).exists():
+                            profile.phone = phone
+                            profile.address.add(bill)
 
-                        profile.phone = phone
-                        profile.address.add(bill)
-
-                    order.billing_address = bill
+                        order.billing_address = bill
 
 
-                    order.save()
-                    return redirect('payment', pk=bill.id)
+                        order.save()
+                        return redirect('payment', pk=bill.id)
+                    else:
+                        messages.error(request , 'Please enter')
+                        return HttpResponseRedirect('checkout')
+
+
+
+
                 else:
-                    messages.error(request , 'Please enter')
-                    return redirect('checkout')
+                    return render(request, '404.html')
 
+            except ObjectDoesNotExist:
+                form = None
+                order = None
+        if 'couponAdd' in request.POST:
+            
+            coupon_code = request.POST.get('coupon_code')
 
+            if  not order.coupon_bool:
 
+                    if coupon_code in couponList:
+                        x = Coupons.objects.get(tag = coupon_code)
+                        order.final_amount = int(order.final_amount -((x.amount/100)*order.final_amount))
+                        order.coupon_bool = True
+                        order.coupon = x
 
+                        x.order_items.add(order)
+                        x.save()
+
+                        messages.success(request , 'Hogaya')
+                        order.save()
+                        
+                        return HttpResponseRedirect('checkout')
+                    else:
+                        all1 = Coupons.objects.filter(tag = coupon_code)
+                        if len(all1)>0:
+                            x = all1[0]
+                        else:
+                            x = None
+                        messages.error(request , 'Invalid code')
+                        return HttpResponseRedirect('checkout')
             else:
-                return render(request, '404.html')
-
-        except ObjectDoesNotExist:
-            form = None
-            order = None
-
+                x = order.coupon
+                messages.warning(request, 'Already Applied')
+                return HttpResponseRedirect('checkout')
+    else:
+        x = order.coupon
 
     context = {
     'form' :form,
     'profile':profile,
     'main_address': main_address,
     'order':order,
+    'code':x
     }
     return render(request , 'checkout.html' , context)
 
 
-client = razorpay.Client(auth=('rzp_live_Wjeh8Li3xOZLVH', 'gLu07fHwYMGB7UDFeINGHIuh'))
 
 def removeCoupon(request,pk):
     order = Order.objects.get(id=pk)
     order.coupon_bool = False
-    order.final_amount += order.coupon.amount
+    order.final_amount  = order.get_total_amount()
     order.coupon = None
     order.save()
     messages.info(request,'Removed')
-    return redirect('payment', pk=order.billing_address.id)
+    return redirect('checkout')
 
 
 def payment(request,pk):
+    client = razorpay.Client(auth=('rzp_live_Wjeh8Li3xOZLVH', 'gLu07fHwYMGB7UDFeINGHIuh'))
+
     order = Order.objects.get(user = request.user , ordered=False )
-    coupons = list(Coupons.objects.all())
-    coupon = [str(x.tag) for x in coupons]
+    
 
     billing_address = Billing_Address.objects.get(id=pk)
     order.billing_address = billing_address
-    order.final_amount = order.get_total_amount()
+    
     order.save()
 
 
-    if request.method == 'POST':
-        coupon_code = request.POST.get('coupon_code')
-
-        if  not order.coupon_bool:
-
-                if coupon_code in coupon:
-                    x = Coupons.objects.get(tag = coupon_code)
-                    order.final_amount = int(order.final_amount -((x.amount/100)*order.final_amount))
-                    order.coupon_bool = True
-                    order.coupon = x
-
-                    x.order_items.add(order)
-                    x.save()
-
-                    messages.success(request , 'Hogaya')
-                    order.save()
-                else:
-                    all1 = Coupons.objects.filter(tag = coupon_code)
-                    if len(all1)>0:
-                        x = all1[0]
-                    else:
-                        x = None
-                    messages.error(request , 'Invalid code')
-        else:
-            x = order.coupon
-            messages.warning(request, 'Already Applied')
-
-    else:
-        x =order.coupon
+    
 
     amount = order.final_amount * 100
     razorpay_order = client.order.create(dict(amount=amount,
                                                        currency='INR',
-                                                       payment_capture=1))
+                                                       payment_capture='0'))
     razorpay_order_id = razorpay_order['id']
+    
     callback_url = 'https://'+ str(get_current_site(request))+ '/paymenthandler'
+    
 
     context  ={
         'razorpay_order_id': razorpay_order_id,
@@ -545,7 +571,7 @@ def payment(request,pk):
         'callback_url': callback_url,
         'order':order,
         'billing_address':billing_address,
-        'code':x
+        
     }
 
     return render(request , 'stripe.html' , context)
@@ -553,8 +579,10 @@ def payment(request,pk):
 
 @csrf_exempt
 def paymenthandler(request):
+    client = razorpay.Client(auth=('rzp_live_Wjeh8Li3xOZLVH', 'gLu07fHwYMGB7UDFeINGHIuh'))
+
     order = Order.objects.get(user = request.user , ordered=False )
-    amount = order.get_total_amount() * 100
+    amount = order.final_amount * 100
     # only accept POST request.
     if request.method == "POST":
         try:
@@ -577,24 +605,36 @@ def paymenthandler(request):
             # verify the payment signature.
             result = client.utility.verify_payment_signature(
                 params_dict)
-
+            
             if result is None:
                 amount = amount  # Rs. 200
                 try:
 
                     # capture the payemt
                     client.payment.capture(payment_id, amount)
-
+                    order.ordered = True
+                    order.save()
+                    for i in order.items.all():
+                        i.ordered = True
+                        i.save()
                     # render success page on successful caputre of payment
-                    return redirect('success')
+                    send_mail(
+                        'Order Confirmed',
+                        'Your Order, #'+str(order.id)+' Is Confirmed With Us. For Any Assistance, Call +91-8851661538. Thank You',
+                        EMAIL_HOST_USER,
+                        [order.billing_address.email],
+                        fail_silently=True,
+                    )
+                    
+                    return render(request, 'success.html' )
                 except:
 
                     # if there is an error while capturing payment.
-                    return redirect('fail')
+                    return HttpResponse('first')
             else:
 
                 # if signature verification fails.
-                return redirect('success')
+                return HttpResponse('second')
         except:
 
             # if we don't find the required parameters in POST data

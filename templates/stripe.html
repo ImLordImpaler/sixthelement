@@ -66,12 +66,7 @@
                   </table>
                   
                   
-                  {% if order.coupon.order_items.all %}
-                    <div  style="border:1px solid green;  background:#CAF7B8; opacity:0.5;  display:flex; justify-content:space-between; padding:0 10px; align-items:center;" >
-                      <p style="color:#004D00;  font-size:1.5rem; margin-top:5px;"><strong><i class="fas fa-tags" style="color:#004D00; "></i> <small>{{code.tag}} applied! {{code.amount}}% off</small></strong></p>
-                      <a href="{% url 'remove-Coupon' order.id %}" ><i class="fas fa-times" style="color:#004D00; "></i></i></a>
-                    </div>
-                  {% endif %}
+                  
                   
                   <p class="text-right " style="color: black; margin-top:10px;">Total: <strong>₹{{order.final_amount}}/-</strong></p>
                       
@@ -84,10 +79,10 @@
               </form>
             </div>
           </div>
-          <div class='row ' style="margin-top:2rem; border-top:1px solid #A5A8AC; ">
+          {% comment %} <div class='row ' style="margin-top:2rem; border-top:1px solid #A5A8AC; ">
 
             <a href="" data-toggle="modal" data-target="#noEmail" style="">Have A Coupon?</a>
-          </div>
+          </div> {% endcomment %}
         </div>
       </div>
     </div>
@@ -104,10 +99,7 @@
 							<div class="row">
 								<div class="col-md-12 col-sm-12 col-xs-12">
 									<div class="modal-image">
-										<form method="post" action="{% url 'payment' billing_address.id  %}"> {% csrf_token %}
-                      <input type="text" class="form-control" placeholder="Enter Code" name="coupon_code" />
-                      <button class="btn btn-main btn-small btn-round-full"  type="submit"  style="margin-top:2rem;">Submit</button>
-                    </form>
+										
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6 col-xs-12">
@@ -155,6 +147,15 @@
 	// initialise razorpay with the options.
 	var rzp1 = new Razorpay(options);
 	
+  rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
 	// add event listner to the payment button.
 	document.getElementById("pay-btn").onclick = function (e) {
 	rzp1.open();
