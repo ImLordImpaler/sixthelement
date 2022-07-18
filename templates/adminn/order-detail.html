@@ -10,7 +10,7 @@
               <div class="card-body">
                 <div class="table-responsive table-upgrade">
                   <table class="table">
-                    
+
                     <tbody>
                       <tr>
                         <td>phone</td>
@@ -48,7 +48,7 @@
                         <td >Items</td></td>
                         <td class="text-right">
                             {% for i  in order.items.all %}
-                                {{i.item.name}} x{{i.qty}} = ₹{{i.get_total}}/-<br>
+                                {{i.item.name}} ({{i.item.flavour.name}}) x{{i.qty}} = ₹{{i.get_total}}/-<br>
                             {% endfor %}
                         </td>
                       </tr>
@@ -56,7 +56,7 @@
                         <td></td>
                         <td class="text-right">Sixth Element</td>
                       </tr>
-                      
+
                     </tbody>
                   </table>
                 </div>

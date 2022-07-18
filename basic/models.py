@@ -9,6 +9,7 @@ import math
 WEIGHT_CHOICES = (
     ('200 gm' , '200 gm'),
     ('255 gm' , '255 gm'),
+    ('160 gm','160 gm'),
     ('260 gm' , '260 gm'),
     ('1 kg' , '1 kg'),
     ('2 kg' , '2 kg'),
@@ -21,6 +22,7 @@ SERVING_CHOICES = (
     ('30','30'),
     ('40','40'),
     ('60','60'),
+    ('20/40','20/40'),
     ('30/60','30/60'),
 )
 CATEGORY_CHOICES = (
@@ -60,7 +62,7 @@ class Item(models.Model):
 
     rating = models.PositiveIntegerField(validators=[MaxValueValidator(5)], null=True, blank=True)
     afterPrice = models.IntegerField(default=0, null=True, blank=True)
-    
+
     def __str__(self):
         if self.flavour:
             return self.name +' -- '+ self.flavour.name + ' -- ' +self.qty
@@ -99,7 +101,7 @@ class Order(models.Model):
         total = 0
         for i in self.items.all():
             total += i.get_total()
-            
+
         return total
 
 class Coupons(models.Model):
@@ -116,7 +118,7 @@ class Billing_Address(models.Model):
     phone = models.CharField(max_length=10 , null=True , blank=True)
     state = models.CharField(max_length=10 , choices=STATE_CHOICES)
     email = models.EmailField(max_length=1000 , null=True, blank=True)
-    
+
     def __str__(self):
         return self.home
 GENDER_CHOICES = (
@@ -171,25 +173,25 @@ class Enquiry(models.Model):
         return self.name
 
 
-        
+
 @receiver(post_save, sender= Reviews)
 def update_score(sender,created, instance, **kwargs):
     if created:
         obj = Item.objects.get(id=instance.item.id)
         reviews = Reviews.objects.filter(item=obj)
-        total =0 
+        total =0
         for i in reviews:
-            total += i.rating  
-        rating = math.ceil(total/reviews.count()) 
+            total += i.rating
+        rating = math.ceil(total/reviews.count())
         obj.rating = rating
-        obj.save() 
-    
+        obj.save()
 
-@receiver(post_save , sender=Item) 
+
+@receiver(post_save , sender=Item)
 def update_price(sender , created , instance , **kwargs):
-    
-    percent = instance.percent 
-    beforeprice = instance.price - (instance.price * (percent/100)) 
+
+    percent = instance.percent
+    beforeprice = instance.price - (instance.price * (percent/100))
     Item.objects.filter(id=instance.id).update(afterPrice = beforeprice)
 
 
